@@ -1,0 +1,64 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+{{ artist.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row my-3 justify-content-between">
+    <div class="col-4">
+        <h3 class="text-primary">{{ artist.name }}</h3>
+        <img src="{{ url_for('static', filename='img/' + artist.img) }}"
+        class="img-responsive w-100 rounded mb-3">
+    {% for genre in genres %}
+        <a href="{{ url_for('genre_detail', pk=genre.id)}}" 
+        class="text-decoration-none text-success m-2 btn btn-outline-info">
+            {{ genre.name }}
+        </a>
+    {% endfor %}
+    </div>
+    <div class="col-6">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Album</th>
+                <th scope="col">Year</th>
+                <th scope="col">Charts</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for album in albums %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{album.name}}</td>
+                    <td>{{album.year}}</td>
+                    <td>{{album.charts}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+
+        <form action="{{ url_for('add_album', pk=artist.id) }}" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Album Title</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">year</label>
+                <input type="text" class="form-control" name="year">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">charts</label>
+                <input type="text" class="form-control" name="charts">
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Add New Album to '{{ artist.name }}'" class="btn btn-primary">
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

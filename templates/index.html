@@ -1,0 +1,36 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+BestEverAlbums
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+    {% for genre in genres %}
+    <a href="{{ url_for('genre_detail', pk=genre.id)}}" 
+    class="text-decoration-none text-success m-2 btn btn-outline-info">
+        {{ genre.name }}({{ genre.count_artists }})
+    </a>
+    {% endfor %}
+</div>
+
+<div class="row my-3 justify-content-between">
+    {% for artist in artists %}
+    <div class="col-3 text-center border border-secondary rounded m-3 p-2">
+        <img src="{{ url_for('static', filename='img/' + artist.img) }}"
+        class="img-responsive w-100 rounded">
+        <a href="{{ url_for('artist_detail', pk=artist.id) }}" class="text-decoration-none">
+            <h5 class="text-primary">{{ artist.name }}</h5> 
+        </a>
+        <p>
+            albums: {{ artist.count_albums }}
+            <br>
+            charts: {{ artist.sum_charts }}
+        </p>
+    </div>
+        
+    {% endfor %}
+</div>
+
+{% endblock %}

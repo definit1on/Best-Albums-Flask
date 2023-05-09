@@ -1,0 +1,27 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+{{ genre.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="row my-3 justify-content-between">
+    <div class="col-4">
+        <h3 class="text-primary">{{ genre.name }}</h3>
+    </div>
+    <div class="col-6">
+        {% for artist in artists %}
+        <a href="{{ url_for('artist_detail', pk=artist.id) }}"
+        class="text-decoration-none">
+            <h3 class="text-primary">
+                <img src="{{ url_for('static', filename='img/' + artist.img) }}" 
+                width="100">
+                {{ artist.name }}
+            </h3>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
